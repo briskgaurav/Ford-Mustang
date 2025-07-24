@@ -7,7 +7,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import * as THREE from "three";
 
-export default function Experience({ data, cameraPos, setCameraPos }) {
+export default function Experience({ data, cameraPos, setCameraPos, sliderStatus }) {
   return (
     <Canvas
       className="model"
@@ -20,16 +20,20 @@ export default function Experience({ data, cameraPos, setCameraPos }) {
       camera={{
         fov: 55,
         position: [20, -50, 50],
-        rotation: [degToRad(-102), 0, 0],
+        rotation: [degToRad(-0), 0, 0],
       }}
     >
       <OrbitControls
         enablePan={false}
         enableZoom={false}
-        minPolarAngle={Math.PI / 2.5}
-        maxPolarAngle={Math.PI / 2.2}
+        minPolarAngle={sliderStatus === "Interior" ? Math.PI / 2.1 : Math.PI / 2.5}
+        maxPolarAngle={sliderStatus === "Interior" ? Math.PI / 1.9 : Math.PI / 2.2}
         target={[0, 5, 0]}
         enableDamping={true}
+        
+        
+        minAzimuthAngle={sliderStatus === "Interior" ? Math.PI / 1.5 : -Infinity}
+        maxAzimuthAngle={sliderStatus === "Interior" ? -Math.PI/1.5: Infinity}
       />
       <Environment
         files="/images/skybox_day.jpg"
@@ -39,7 +43,7 @@ export default function Experience({ data, cameraPos, setCameraPos }) {
 
       <directionalLight position={[10, 10, 5]} intensity={3} />
 
-      <Model cameraPos={cameraPos} setCameraPos={setCameraPos} data={data} />
+      <Model cameraPos={cameraPos} setCameraPos={setCameraPos} sliderStatus={sliderStatus} data={data} />
     </Canvas>
   );
 }

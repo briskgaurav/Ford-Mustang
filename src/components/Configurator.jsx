@@ -43,18 +43,23 @@ export default function Configurator({
     // console.log(data);
   };
   const handleInteriorCamera = () => {
+    // setData({
+    //   ...data,
+    //   video: [{ id: `view2`, cameraAngles: { x: 50, y: -15, z: 0 } }],
+    // });
     if (sliderStatus === "Interior") {
-      setCameraPos({
-        x:0,
-        y:-2,
-        z:-2,
-      });
+
+        setCameraPos({
+          x: .8,
+          y: .5,
+          z: -3,
+        });
     }
-    if(sliderStatus === 'Exterior'){
+    if (sliderStatus === "Exterior") {
       setCameraPos({
-        x:0,
-        y:0,
-        z:70,
+        x: 0,
+        y: 0,
+        z: 70,
       });
     }
   };
@@ -67,9 +72,7 @@ export default function Configurator({
     <>
       <div
         className={`absolute z-[10] ${
-          sliderStatus === "Interior"
-            ? "pointer-events-none backdrop-blur-xs bg-white/20"
-            : "pointer-events-auto"
+          sliderStatus === "Interior" ? " backdrop-blur-xs bg-white/20" : ""
         } left-0 pt-[1vw] pb-[.5vw] bottom-0 h-fit w-full bg-[#EBEBEB] shadow-2xl shadow-black backdrop-blur-md flex transition-all duration-2000 gap-[2.5vw] items-center justify-center`}
       >
         {buttonsArray.map((button, index) => (
@@ -85,11 +88,15 @@ export default function Configurator({
                 alt={button.title}
                 className="h-full w-full object-contain"
                 src={button.img}
-                height={100}
-                width={100}
+                height={200}
+                width={200}
               />
             </div>
-            <p className={` ${sliderStatus==='Interior' ? 'text-white' : 'text-blue-900'}  font-semibold text-sm`}>
+            <p
+              className={` ${
+                sliderStatus === "Interior" ? "text-white" : "text-blue-900"
+              } transition-all duration-2000 font-semibold text-sm`}
+            >
               {button.title}
             </p>
           </div>
@@ -97,7 +104,7 @@ export default function Configurator({
       </div>
       <Pallette handleColors={handleColors} />
       <EnvironmentPallette />
-      <CameraPallette handleCamera={handleCamera} />
+      <CameraPallette handleCamera={handleCamera} sliderStatus={sliderStatus} />
     </>
   );
 }

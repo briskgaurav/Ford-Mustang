@@ -94,6 +94,7 @@ export default function Page() {
         data={data}
         sliderStatus={sliderStatus}
         setCameraPos={setCameraPos}
+        cameraPos={cameraPos}
       />
 
       <Experience

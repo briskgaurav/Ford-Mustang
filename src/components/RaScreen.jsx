@@ -15,7 +15,7 @@ export default function RaScreen() {
           />
         </div>
         <p className="text-black text-md mt-[1vw] text-center">
-          Made By Gaurav Verma - Creative Developer at Enigma Digitals ❤️
+          Made By Gaurav Verma - Creative Developer at Enigma Digital ❤️
           <a
             href="https://weareenigma.com/"
             className="block text-blue-500 cursor-pointer mt-[.5vw]"

@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import { applyBodyColor } from "@/Functions/ApplyBodyColor";
 import { useThree } from "@react-three/fiber";
-import gsap, { Expo } from 'gsap';
+import gsap, { Expo } from "gsap";
 
-export default function Model({ data, cameraPos, setCameraPos }) {
+export default function Model({ data, cameraPos, setCameraPos, sliderStatus }) {
   const { camera } = useThree();
   const { color, Env, video, info } = data;
   const mustangData = useGLTF("/model/car.glb");
@@ -21,18 +21,25 @@ export default function Model({ data, cameraPos, setCameraPos }) {
     });
   }, []);
 
-
-
   useEffect(() => {
     gsap.to(camera.position, {
       x: cameraPos.x,
-      y: cameraPos.y, 
+      y: cameraPos.y,
       z: cameraPos.z,
       duration: 2,
       ease: Expo,
     });
-  }, [cameraPos]);
 
+    gsap.to(camera, {
+      fov: sliderStatus === "Interior" ? 60 : 55,
+      duration: 2,
+      ease: Expo,
+      onUpdate: () => {
+        camera.updateProjectionMatrix();
+      }
+    });
+
+  }, [cameraPos, sliderStatus]);
 
   useEffect(() => {
     if (!materials) return;

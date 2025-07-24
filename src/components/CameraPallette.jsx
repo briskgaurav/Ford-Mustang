@@ -1,26 +1,26 @@
 import React from "react";
 
-export default function CameraPallette({ handleCamera }) {
+export default function CameraPallette({ handleCamera, sliderStatus }) {
   const cameraAngles = [
     {
       number: 1,
-      position: { x: 0, y: 0, z: 70 },
-      rotation: { x: -102, y: 0, z: 0 },
+      position: sliderStatus === 'Interior' ? { x: .8, y: .5, z: -3 } : { x: 0, y: 0, z: 70 },
+      rotation: sliderStatus === 'Interior' ? { x: -0, y: 0, z: 0 } : { x: -102, y: 0, z: 0 },
     },
     {
       number: 2,
-      position: { x: 50, y: -15, z: 0 },
-      rotation: { x: -60, y: 45, z: 0 },
+      position: sliderStatus === 'Interior' ? { x: -.8, y: -.5, z: -3 } : { x: 50, y: -15, z: 0 },
+      rotation: sliderStatus === 'Interior' ? { x: -60, y: 45, z: 0 } : { x: -60, y: 45, z: 0 },
     },
     {
       number: 3,
-      position: { x: 0, y: 0, z: -70 },
-      rotation: { x: -60, y: -45, z: 0 },
+      position: sliderStatus === 'Interior' ? { x: 2, y: 2, z: -10 } : { x: 0, y: 0, z: -70 },
+      rotation: sliderStatus === 'Interior' ? { x: -60, y: -45, z: 0 } : { x: -60, y: -45, z: 0 },
     },
     {
       number: 4,
-      position: { x: -40, y: 10, z: 50 },
-      rotation: { x: -120, y: 0, z: 0 },
+      position: sliderStatus === 'Interior' ? { x: -2, y: 2, z: -10 } : { x: -40, y: 10, z: 50 },
+      rotation: sliderStatus === 'Interior' ? { x: -120, y: 0, z: 0 } : { x: -120, y: 0, z: 0 },
     },
   ];
 
