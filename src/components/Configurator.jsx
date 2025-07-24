@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Pallette from "./Pallette";
 import EnvironmentPallette from "./EnvironmentPallette";
 import CameraPallette from "./CameraPallette";
+
 const buttonsArray = [
   {
     img: "/images/color.png",
@@ -22,15 +23,24 @@ const buttonsArray = [
   },
 ];
 
-export default function Configurator({ handleConfigButton, setData,data}) {
+export default function Configurator({
+  handleConfigButton,
+  setData,
+  data,
+  setCameraPos,
+}) {
+  const handleColors = (colorCode) => {
+    setData({ ...data, color: colorCode });
+  };
 
-  
-  const handleColors = (colorCode)=>{
-    setData({...data, color:colorCode})
-  }
-  const handleCamera = (CameraNumber)=>{
-
-  }
+  const handleCamera = (cameraNumber, positions) => {
+    setCameraPos(positions);
+    setData({
+      ...data,
+      video: [{ id: `view${cameraNumber}`, cameraAngles: positions }],
+    });
+    // console.log(data);
+  };
   return (
     <>
       <div className="absolute z-[10] left-0 pt-[1vw] pb-[.5vw] bottom-0 h-fit w-full bg-[#EBEBEB] shadow-2xl shadow-black backdrop-blur-md flex gap-[2.5vw] items-center justify-center">
@@ -57,9 +67,9 @@ export default function Configurator({ handleConfigButton, setData,data}) {
           </div>
         ))}
       </div>
-     <Pallette handleColors={handleColors} />
-     <EnvironmentPallette  />
-     <CameraPallette />
+      <Pallette handleColors={handleColors} />
+      <EnvironmentPallette />
+      <CameraPallette handleCamera={handleCamera} />
     </>
   );
 }

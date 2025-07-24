@@ -7,16 +7,19 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import * as THREE from "three";
 
-export default function Experience({ data }) {
+export default function Experience({ data, cameraPos, setCameraPos }) {
   return (
     <Canvas
       className="model"
       flat
       shadows
-      gl={{ toneMapping: THREE.ACESFilmicToneMapping, outputEncoding: THREE.sRGBEncoding }}
+      gl={{
+        toneMapping: THREE.ACESFilmicToneMapping,
+        outputEncoding: THREE.sRGBEncoding,
+      }}
       camera={{
         fov: 55,
-        position: [0, -50, 50],
+        position: [20, -50, 50],
         rotation: [degToRad(-102), 0, 0],
       }}
     >
@@ -30,12 +33,12 @@ export default function Experience({ data }) {
       <Environment
         files="/images/skybox_day.jpg"
         background
-      environmentIntensity={.6}
+        environmentIntensity={0.6}
       />
 
       <directionalLight position={[10, 10, 5]} intensity={3} />
 
-      <Model data={data} />
+      <Model cameraPos={cameraPos} setCameraPos={setCameraPos} data={data} />
     </Canvas>
   );
 }

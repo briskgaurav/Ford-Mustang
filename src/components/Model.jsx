@@ -1,44 +1,43 @@
 "use client";
 import { useGLTF, Center, useTexture } from "@react-three/drei";
 import React, { useEffect } from "react";
-import { degToRad } from "three/src/math/MathUtils";
-import * as THREE from "three";
+import { degToRad, radToDeg } from "three/src/math/MathUtils";
+import { applyBodyColor } from "@/Functions/ApplyBodyColor";
+import { useThree } from "@react-three/fiber";
+import gsap from 'gsap';
 
-export default function Model({ data }) {
+export default function Model({ data, cameraPos, setCameraPos }) {
+  const { camera } = useThree();
   const { color, Env, video, info } = data;
-  const mustangData = useGLTF("/model/Mustang.glb");
-  const {nodes, materials, scene} = mustangData;
-  const texture = useTexture("/images/skybox_day.jpg");
-  console.log(mustangData);
+  const mustangData = useGLTF("/model/car.glb");
+  const { nodes, materials, scene } = mustangData;
+
+  console.log(nodes)
+  useEffect(() => {
+    setCameraPos({
+      x: camera.position.x,
+      y: camera.position.y,
+      z: camera.position.z,
+    });
+  }, []);
+
+  useEffect(() => {
+    gsap.to(camera.position, {
+      x: cameraPos.x,
+      y: cameraPos.y, 
+      z: cameraPos.z,
+      duration: 1,
+      ease: "power2.out"
+    });
+  }, [cameraPos]);
+
+
   useEffect(() => {
     if (!materials) return;
-  
-    const applyBodyColor = (name) => {
-      const mat = materials[name];
-      if (mat && mat instanceof THREE.MeshStandardMaterial) {
-        // Upgrade to MeshPhysicalMaterial if not already
-        const newMaterial = new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color(color),
-          metalness: 0.9,
-          roughness: 0.05,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.03,
-          reflectivity: 1.0,
-          envMapIntensity: 2.0,
-          ior: 1.5,
-          transmission: 0, // set > 0 for glass-like
-        });
-    
-        // Copy other existing values if needed
-        Object.assign(mat, newMaterial);
-      }
-    };
-    
-    applyBodyColor("ColorPrincipal");
-    applyBodyColor("ColorPrincipal2");
-  
+
+    applyBodyColor("ColorPrincipal", materials, color);
+    applyBodyColor("ColorPrincipal2", materials, color);
   }, [color, materials]);
-  
 
   return (
     <Center>
