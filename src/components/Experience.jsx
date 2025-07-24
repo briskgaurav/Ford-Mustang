@@ -29,6 +29,7 @@ export default function Experience({ data, cameraPos, setCameraPos }) {
         minPolarAngle={Math.PI / 2.5}
         maxPolarAngle={Math.PI / 2.2}
         target={[0, 5, 0]}
+        enableDamping={true}
       />
       <Environment
         files="/images/skybox_day.jpg"

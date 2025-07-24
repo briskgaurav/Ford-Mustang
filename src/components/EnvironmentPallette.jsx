@@ -20,7 +20,7 @@ export default function EnvironmentPallette() {
     },
   ];
   return (
-    <div className="envPallete gap-[1vw] absolute left-0 bottom-0 z-[2] flex items-center justify-center w-full">
+    <div className="envPallete gap-[1vw] opacity-0 absolute left-0 bottom-0 z-[2] flex items-center justify-center w-full">
       {buttons.map((col, index) => (
         <div
           key={index}

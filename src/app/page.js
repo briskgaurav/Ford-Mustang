@@ -2,11 +2,12 @@
 import Configurator from "@/components/Configurator";
 import Experience from "@/components/Experience";
 import Interface from "@/components/Interface";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import gsap from "gsap";
 import { useThree } from "@react-three/fiber";
+import RaScreen from "@/components/RaScreen";
 
-export default function page() {
+export default function Page() {
   const [cameraPos, setCameraPos] = useState({
     x: 0,
     y: 0,
@@ -35,6 +36,7 @@ export default function page() {
   });
 
   const handleConfigButton = (button) => {
+    
     const isTogglingOn = !configButton[button];
 
     // Toggle only the clicked button
@@ -42,43 +44,64 @@ export default function page() {
       Color: false,
       Scene: false,
       Video: false,
+      Info: false,
       [button]: isTogglingOn,
     });
 
     // Animate panels
     gsap.to(".pallete", {
       y: button === "Color" && isTogglingOn ? -110 : 0,
+      opacity: button === "Color" && isTogglingOn ? 1 : 0,
       duration: 0.5,
       ease: "power2.inOut",
     });
 
     gsap.to(".envPallete", {
       y: button === "Scene" && isTogglingOn ? -110 : 0,
+      opacity: button === "Scene" && isTogglingOn ? 1 : 0,
       duration: 0.5,
       ease: "power2.inOut",
     });
     gsap.to(".cameraPallete", {
       y: button === "Video" && isTogglingOn ? -110 : 0,
+      opacity: button === "Video" && isTogglingOn ? 1 : 0,
       duration: 0.5,
       ease: "power2.inOut",
     });
   };
 
+  const [sliderStatus, setSliderStatus] = useState("Exterior");
+  useEffect(() => {
+    if (sliderStatus === "RA") {
+      gsap.to(".ra", {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.inOut",
+      });
+    }
+  }, [sliderStatus]);
+
   return (
     <div className="h-screen relative w-full">
-      <Interface />
+      {sliderStatus === "RA" && <RaScreen />}
+      <Interface
+        sliderStatus={sliderStatus}
+        setSliderStatus={setSliderStatus}
+      />
       <Configurator
         handleConfigButton={handleConfigButton}
         setData={setData}
         data={data}
+        sliderStatus={sliderStatus}
         setCameraPos={setCameraPos}
-
       />
 
       <Experience
         cameraPos={cameraPos}
         setCameraPos={setCameraPos}
         data={data}
+        sliderStatus={sliderStatus}
+        setSliderStatus={setSliderStatus}
       />
     </div>
   );

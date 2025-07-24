@@ -25,7 +25,7 @@ export default function CameraPallette({ handleCamera }) {
   ];
 
   return (
-    <div className="cameraPallete gap-[1vw] absolute left-0 bottom-[0%] z-[2] flex items-center justify-center w-full">
+    <div className="cameraPallete opacity-0 gap-[1vw] absolute left-0 bottom-[0%] z-[2] flex items-center justify-center w-full">
       {cameraAngles.map((angle, index) => (
         <div
           key={index}

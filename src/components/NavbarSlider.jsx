@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import gsap from "gsap";
 
-export default function NavbarSlider() {
-  const [active, setActive] = useState("Exterior");
+export default function NavbarSlider({
+  sliderStatus,
+  setSliderStatus
+}) {
+  
 
   const handleSlider = (text) => {
-    setActive(text);
+    setSliderStatus(text);
     
     const positions = {
       Interior: "95%",
@@ -29,7 +32,7 @@ export default function NavbarSlider() {
               key={i}
               onClick={() => handleSlider(item)}
               className={`text-black w-full text-center z-[2] cursor-pointer tracking-wide ${
-                active === item ? "text-white" : ""
+                sliderStatus === item ? "text-white" : ""
               }`}
             >
               {item}

@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import { applyBodyColor } from "@/Functions/ApplyBodyColor";
 import { useThree } from "@react-three/fiber";
-import gsap from 'gsap';
+import gsap, { Expo } from 'gsap';
 
 export default function Model({ data, cameraPos, setCameraPos }) {
   const { camera } = useThree();
@@ -12,7 +12,7 @@ export default function Model({ data, cameraPos, setCameraPos }) {
   const mustangData = useGLTF("/model/car.glb");
   const { nodes, materials, scene } = mustangData;
 
-  console.log(nodes)
+  // console.log(nodes)
   useEffect(() => {
     setCameraPos({
       x: camera.position.x,
@@ -21,13 +21,15 @@ export default function Model({ data, cameraPos, setCameraPos }) {
     });
   }, []);
 
+
+
   useEffect(() => {
     gsap.to(camera.position, {
       x: cameraPos.x,
       y: cameraPos.y, 
       z: cameraPos.z,
-      duration: 1,
-      ease: "power2.out"
+      duration: 2,
+      ease: Expo,
     });
   }, [cameraPos]);
 

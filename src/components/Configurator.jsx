@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pallette from "./Pallette";
 import EnvironmentPallette from "./EnvironmentPallette";
 import CameraPallette from "./CameraPallette";
@@ -28,6 +28,7 @@ export default function Configurator({
   setData,
   data,
   setCameraPos,
+  sliderStatus,
 }) {
   const handleColors = (colorCode) => {
     setData({ ...data, color: colorCode });
@@ -41,9 +42,36 @@ export default function Configurator({
     });
     // console.log(data);
   };
+  const handleInteriorCamera = () => {
+    if (sliderStatus === "Interior") {
+      setCameraPos({
+        x:0,
+        y:-2,
+        z:-2,
+      });
+    }
+    if(sliderStatus === 'Exterior'){
+      setCameraPos({
+        x:0,
+        y:0,
+        z:70,
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleInteriorCamera();
+  }, [sliderStatus]);
+
   return (
     <>
-      <div className="absolute z-[10] left-0 pt-[1vw] pb-[.5vw] bottom-0 h-fit w-full bg-[#EBEBEB] shadow-2xl shadow-black backdrop-blur-md flex gap-[2.5vw] items-center justify-center">
+      <div
+        className={`absolute z-[10] ${
+          sliderStatus === "Interior"
+            ? "pointer-events-none backdrop-blur-xs bg-white/20"
+            : "pointer-events-auto"
+        } left-0 pt-[1vw] pb-[.5vw] bottom-0 h-fit w-full bg-[#EBEBEB] shadow-2xl shadow-black backdrop-blur-md flex transition-all duration-2000 gap-[2.5vw] items-center justify-center`}
+      >
         {buttonsArray.map((button, index) => (
           <div
             key={index}
@@ -61,7 +89,7 @@ export default function Configurator({
                 width={100}
               />
             </div>
-            <p className="text-blue-900 font-semibold text-sm">
+            <p className={` ${sliderStatus==='Interior' ? 'text-white' : 'text-blue-900'}  font-semibold text-sm`}>
               {button.title}
             </p>
           </div>
