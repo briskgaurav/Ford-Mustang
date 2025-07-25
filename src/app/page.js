@@ -8,8 +8,14 @@ import RaScreen from "@/components/RaScreen";
 import { infoData } from "@/Functions/data";
 import InfoPopup from "@/components/InfoPopup";
 
-
 export default function Page() {
+  const [EnviornmentConfig, setEnviornmentConfig] = useState({
+    hdri: false,
+    light: false,
+    intensityDay: 0.6,
+    intensityNight: 4,
+  });
+
   const [cameraPos, setCameraPos] = useState({
     x: 0,
     y: 0,
@@ -39,7 +45,6 @@ export default function Page() {
   });
 
   const handleConfigButton = (button) => {
-    
     const isTogglingOn = !configButton[button];
 
     // Toggle only the clicked button
@@ -55,23 +60,21 @@ export default function Page() {
       gsap.to([".pallete", ".envPallete", ".cameraPallete"], {
         y: 0,
         opacity: 0,
-        duration: .5,
+        duration: 0.5,
         ease: "power2.inOut",
-        onComplete:()=>{
+        onComplete: () => {
           setData((prev) => ({
             ...prev,
             info: isTogglingOn,
           }));
-          return; 
-        }
+          return;
+        },
       });
-     
     }
     setData((prev) => ({
       ...prev,
       info: false,
     }));
-  
 
     // Animate panels
     gsap.to(".pallete", {
@@ -115,6 +118,8 @@ export default function Page() {
         infoDataState={infoDataState}
       />
       <Configurator
+        EnviornmentConfig={EnviornmentConfig}
+        setEnviornmentConfig={setEnviornmentConfig}
         handleConfigButton={handleConfigButton}
         setData={setData}
         data={data}
@@ -122,10 +127,14 @@ export default function Page() {
         setCameraPos={setCameraPos}
         cameraPos={cameraPos}
       />
-      <InfoPopup infoDataState={infoDataState} setInfoDataState={setInfoDataState} />
+      <InfoPopup
+        infoDataState={infoDataState}
+        setInfoDataState={setInfoDataState}
+      />
 
       <Experience
         cameraPos={cameraPos}
+        EnviornmentConfig={EnviornmentConfig}
         setInfoDataState={setInfoDataState}
         infoDataState={infoDataState}
         setCameraPos={setCameraPos}
@@ -133,7 +142,6 @@ export default function Page() {
         sliderStatus={sliderStatus}
         setSliderStatus={setSliderStatus}
       />
-
     </div>
   );
 }

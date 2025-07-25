@@ -1,15 +1,15 @@
 "use client";
-import { useGLTF, Center, useTexture, Html } from "@react-three/drei";
+import { useGLTF, Center, Html } from "@react-three/drei";
 import React, { useEffect } from "react";
-import { degToRad, radToDeg } from "three/src/math/MathUtils";
+import { degToRad } from "three/src/math/MathUtils";
 import { applyBodyColor } from "@/Functions/ApplyBodyColor";
 import { useThree } from "@react-three/fiber";
 import gsap, { Expo } from "gsap";
+import * as THREE from "three";
 
 export default function Model({
   data,
   cameraPos,
-  setCameraPos,
   sliderStatus,
   setInfoDataState,
   infoDataState,
@@ -20,31 +20,24 @@ export default function Model({
   const { nodes, materials, scene } = mustangData;
   const openedInfo = infoDataState.find((info) => info.isOpened);
   const currentIndex = infoDataState.indexOf(openedInfo);
-  const currentCameraPosition = openedInfo ? infoDataState[currentIndex].cameraPosition : null;
-
-  useEffect(() => {
-    setCameraPos({
-      x: camera.position.x,
-      y: camera.position.y,
-      z: camera.position.z,
-    });
-  }, []);
-
+  const currentCameraPosition = openedInfo
+    ? infoDataState[currentIndex].cameraPosition
+    : null;
 
   // position for Camera Config Button
   useEffect(() => {
-    if(openedInfo === true) return;
+    if (openedInfo === true) return;
     gsap.to(camera.position, {
       x: cameraPos.x,
       y: cameraPos.y,
       z: cameraPos.z,
-      duration: 2,
+      duration: 1.5,
       ease: Expo,
     });
 
     gsap.to(camera, {
       fov: sliderStatus === "Interior" ? 60 : 55,
-      duration: 2,
+      duration: 1.5,
       ease: Expo,
       onUpdate: () => {
         camera.updateProjectionMatrix();
@@ -56,13 +49,23 @@ export default function Model({
   useEffect(() => {
     gsap.to(camera.position, {
       x: currentCameraPosition ? currentCameraPosition.x : 20,
-      y: currentCameraPosition ? currentCameraPosition.y : -50, 
+      y: currentCameraPosition ? currentCameraPosition.y : -50,
       z: currentCameraPosition ? currentCameraPosition.z : 50,
-      duration: 2,
+      duration: 1.5,
       ease: Expo,
     });
   }, [currentCameraPosition]);
-  
+
+  // Move lights mesh and update material
+  useEffect(() => {
+    console.log(materials.LucesPosicionLaterales)
+    materials.LucesPosicionLaterales.roughness = 0.1;
+    materials.LucesPosicionLaterales.color = new THREE.Color(1.0, 0, 0);
+    materials.LucesPosicionLaterales.metalness = 0.9;
+    materials.LucesPosicionLaterales.clearcoat = 1.0;
+    materials.LucesPosicionLaterales.clearcoatRoughness = 0.1;
+    materials.LucesPosicionLaterales.needsUpdate = true;
+  }, []);
 
   useEffect(() => {
     if (!materials) return;
@@ -87,31 +90,33 @@ export default function Model({
         {/* Renders full model */}
         <primitive object={scene} />
 
-        {info === true && openedInfo === undefined && sliderStatus === "Exterior" && (
-          <>
-            {/* tire */}
-            <Html occlude center position={[1, 0.3, 0]}>
-              <div onClick={() => handleInfo(0)} className="button-style">
-                +
-              </div>
-            </Html>
-            <Html occlude center position={[0.6, 0.4, -3.8]}>
-              <div onClick={() => handleInfo(1)} className="button-style">
-                +
-              </div>
-            </Html>
-            <Html occlude center position={[-0, 0.1, 0.8]}>
-              <div onClick={() => handleInfo(2)} className="button-style">
-                +
-              </div>
-            </Html>
-            <Html occlude center position={[-1, 0.3, -2.8]}>
-              <div onClick={() => handleInfo(3)} className="button-style">
-                +
-              </div>
-            </Html>
-          </>
-        )}
+        {info === true &&
+          openedInfo === undefined &&
+          sliderStatus === "Exterior" && (
+            <>
+              {/* tire */}
+              <Html occlude center position={[1, 0.3, 0]}>
+                <div onClick={() => handleInfo(0)} className="button-style">
+                  +
+                </div>
+              </Html>
+              <Html occlude center position={[0.6, 0.4, -3.8]}>
+                <div onClick={() => handleInfo(1)} className="button-style">
+                  +
+                </div>
+              </Html>
+              <Html occlude center position={[-0, 0.1, 0.8]}>
+                <div onClick={() => handleInfo(2)} className="button-style">
+                  +
+                </div>
+              </Html>
+              <Html occlude center position={[-1, 0.3, -2.8]}>
+                <div onClick={() => handleInfo(3)} className="button-style">
+                  +
+                </div>
+              </Html>
+            </>
+          )}
       </group>
     </Center>
   );

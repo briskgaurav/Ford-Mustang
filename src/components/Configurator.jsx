@@ -29,6 +29,8 @@ export default function Configurator({
   data,
   setCameraPos,
   sliderStatus,
+  EnviornmentConfig,
+  setEnviornmentConfig,
 }) {
   const [activeButton, setActiveButton] = useState({
     state: false,
@@ -69,7 +71,7 @@ export default function Configurator({
       {/* Configurator Toolbar */}
       <div
         className={`absolute z-[10] left-0 pt-[1vw] pb-[.5vw] bottom-0 w-full h-fit shadow-2xl backdrop-blur-md flex gap-[2.5vw] items-center justify-center transition-colors duration-500 ${
-          sliderStatus === "Interior" ? "bg-white/20" : "bg-[#EBEBEB]"
+          sliderStatus === "Interior" || EnviornmentConfig.hdri === true ? "bg-white/20" : "bg-[#EBEBEB]"
         }`}
       >
         {buttonsArray.map((button, index) => (
@@ -83,7 +85,7 @@ export default function Configurator({
                     : { state: true, id: button.title }
                 );
               }}
-              className={`w-[3vw] h-[3vw] p-[.6vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 ${
+              className={`w-[3vw] cursor-pointer h-[3vw] p-[.6vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 ${
                 activeButton.state && activeButton.id === button.title
                   ? "bg-blue-400"
                   : "bg-white"
@@ -110,7 +112,7 @@ export default function Configurator({
 
       {/* Color, Scene, and Camera Palettes */}
       <Pallette handleColors={handleColors} />
-      <EnvironmentPallette />
+      <EnvironmentPallette EnviornmentConfig={EnviornmentConfig} setEnviornmentConfig={setEnviornmentConfig} />
       <CameraPallette handleCamera={handleCamera} sliderStatus={sliderStatus} />
     </>
   );

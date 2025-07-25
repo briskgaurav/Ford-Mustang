@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+import React, { useEffect } from "react";
 import Model from "./Model";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
@@ -14,7 +14,13 @@ export default function Experience({
   sliderStatus,
   setInfoDataState,
   infoDataState,
+  EnviornmentConfig,
 }) {
+
+  // useEffect(() => {
+  //  console.log(EnviornmentConfig)
+  // }, [EnviornmentConfig])
+  
   return (
     <Canvas
       className="model"
@@ -49,13 +55,13 @@ export default function Experience({
         }
       />
       <Environment
-        files="/images/skybox_day.jpg"
+        files={EnviornmentConfig.hdri ? "/images/skybox_night.jpg" : "/images/skybox_day.jpg"}
         background
-        environmentIntensity={0.6}
+        environmentIntensity={EnviornmentConfig.hdri ? EnviornmentConfig.intensityNight : EnviornmentConfig.intensityDay}
         environmentRotation={degToRad(-20)}
       />
 
-      <directionalLight position={[10, 10, 5]} intensity={3} />
+      <directionalLight position={[10, 10, 5]} intensity={1} />
 
       <Model
         cameraPos={cameraPos}
