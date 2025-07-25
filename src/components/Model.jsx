@@ -1,18 +1,27 @@
 "use client";
-import { useGLTF, Center, useTexture } from "@react-three/drei";
+import { useGLTF, Center, useTexture, Html } from "@react-three/drei";
 import React, { useEffect } from "react";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import { applyBodyColor } from "@/Functions/ApplyBodyColor";
 import { useThree } from "@react-three/fiber";
 import gsap, { Expo } from "gsap";
 
-export default function Model({ data, cameraPos, setCameraPos, sliderStatus }) {
+export default function Model({
+  data,
+  cameraPos,
+  setCameraPos,
+  sliderStatus,
+  setInfoDataState,
+  infoDataState,
+}) {
   const { camera } = useThree();
   const { color, Env, video, info } = data;
   const mustangData = useGLTF("/model/car.glb");
   const { nodes, materials, scene } = mustangData;
+  const openedInfo = infoDataState.find((info) => info.isOpened);
+  const currentIndex = infoDataState.indexOf(openedInfo);
+  const currentCameraPosition = openedInfo ? infoDataState[currentIndex].cameraPosition : null;
 
-  // console.log(nodes)
   useEffect(() => {
     setCameraPos({
       x: camera.position.x,
@@ -21,7 +30,10 @@ export default function Model({ data, cameraPos, setCameraPos, sliderStatus }) {
     });
   }, []);
 
+
+  // position for Camera Config Button
   useEffect(() => {
+    if(openedInfo === true) return;
     gsap.to(camera.position, {
       x: cameraPos.x,
       y: cameraPos.y,
@@ -36,10 +48,21 @@ export default function Model({ data, cameraPos, setCameraPos, sliderStatus }) {
       ease: Expo,
       onUpdate: () => {
         camera.updateProjectionMatrix();
-      }
+      },
     });
-
   }, [cameraPos, sliderStatus]);
+
+  // Position for info Camera Button
+  useEffect(() => {
+    gsap.to(camera.position, {
+      x: currentCameraPosition ? currentCameraPosition.x : 20,
+      y: currentCameraPosition ? currentCameraPosition.y : -50, 
+      z: currentCameraPosition ? currentCameraPosition.z : 50,
+      duration: 2,
+      ease: Expo,
+    });
+  }, [currentCameraPosition]);
+  
 
   useEffect(() => {
     if (!materials) return;
@@ -48,11 +71,47 @@ export default function Model({ data, cameraPos, setCameraPos, sliderStatus }) {
     applyBodyColor("ColorPrincipal2", materials, color);
   }, [color, materials]);
 
+  const handleInfo = (currentIndex) => {
+    setInfoDataState(
+      infoDataState.map((item, index) => {
+        if (index === currentIndex) {
+          return { ...item, isOpened: true };
+        }
+        return item;
+      })
+    );
+  };
   return (
     <Center>
       <group rotation={[0, degToRad(0), 0]} scale={12} position={[0, -5, 0]}>
         {/* Renders full model */}
         <primitive object={scene} />
+
+        {info === true && openedInfo === undefined && sliderStatus === "Exterior" && (
+          <>
+            {/* tire */}
+            <Html occlude center position={[1, 0.3, 0]}>
+              <div onClick={() => handleInfo(0)} className="button-style">
+                +
+              </div>
+            </Html>
+            <Html occlude center position={[0.6, 0.4, -3.8]}>
+              <div onClick={() => handleInfo(1)} className="button-style">
+                +
+              </div>
+            </Html>
+            <Html occlude center position={[-0, 0.1, 0.8]}>
+              <div onClick={() => handleInfo(2)} className="button-style">
+                +
+              </div>
+            </Html>
+            <Html occlude center position={[-1, 0.3, -2.8]}>
+              <div onClick={() => handleInfo(3)} className="button-style">
+                +
+              </div>
+            </Html>
+          </>
+        )}
       </group>
     </Center>
   );

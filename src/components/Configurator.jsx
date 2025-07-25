@@ -30,37 +30,33 @@ export default function Configurator({
   setCameraPos,
   sliderStatus,
 }) {
+  const [activeButton, setActiveButton] = useState({
+    state: false,
+    id: null,
+  });
+
+  // Set car body color
   const handleColors = (colorCode) => {
-    setData({ ...data, color: colorCode });
+    setData((prev) => ({ ...prev, color: colorCode }));
   };
 
+  // Update camera from pallette buttons
   const handleCamera = (cameraNumber, positions) => {
     setCameraPos(positions);
-    setData({
-      ...data,
+    setData((prev) => ({
+      ...prev,
       video: [{ id: `view${cameraNumber}`, cameraAngles: positions }],
-    });
-    // console.log(data);
+    }));
   };
-  const handleInteriorCamera = () => {
-    // setData({
-    //   ...data,
-    //   video: [{ id: `view2`, cameraAngles: { x: 50, y: -15, z: 0 } }],
-    // });
-    if (sliderStatus === "Interior") {
 
-        setCameraPos({
-          x: .8,
-          y: .5,
-          z: -3,
-        });
-    }
-    if (sliderStatus === "Exterior") {
-      setCameraPos({
-        x: 0,
-        y: 0,
-        z: 70,
-      });
+  // Auto-handle camera position based on current slider tab
+  const handleInteriorCamera = () => {
+    if (sliderStatus === "Interior") {
+      setCameraPos({ x: 0.8, y: 0.5, z: -3 });
+    } else if (sliderStatus === "Exterior") {
+      setCameraPos({ x: 0, y: 0, z: 70 });
+    } else {
+      console.warn("Unhandled sliderStatus:", sliderStatus);
     }
   };
 
@@ -70,19 +66,28 @@ export default function Configurator({
 
   return (
     <>
+      {/* Configurator Toolbar */}
       <div
-        className={`absolute z-[10] ${
-          sliderStatus === "Interior" ? " backdrop-blur-xs bg-white/20" : ""
-        } left-0 pt-[1vw] pb-[.5vw] bottom-0 h-fit w-full bg-[#EBEBEB] shadow-2xl shadow-black backdrop-blur-md flex transition-all duration-2000 gap-[2.5vw] items-center justify-center`}
+        className={`absolute z-[10] left-0 pt-[1vw] pb-[.5vw] bottom-0 w-full h-fit shadow-2xl backdrop-blur-md flex gap-[2.5vw] items-center justify-center transition-colors duration-500 ${
+          sliderStatus === "Interior" ? "bg-white/20" : "bg-[#EBEBEB]"
+        }`}
       >
         {buttonsArray.map((button, index) => (
-          <div
-            key={index}
-            className="flex flex-col gap-2 items-center justify-center"
-          >
-            <div
-              onClick={() => handleConfigButton(button.title)}
-              className="w-[3vw] cursor-pointer h-[3vw]"
+          <div key={index} className="flex flex-col gap-2 items-center justify-center">
+            <button
+              onClick={() => {
+                handleConfigButton(button.title);
+                setActiveButton((prev) =>
+                  prev.id === button.title
+                    ? { state: !prev.state, id: button.title }
+                    : { state: true, id: button.title }
+                );
+              }}
+              className={`w-[3vw] h-[3vw] p-[.6vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 ${
+                activeButton.state && activeButton.id === button.title
+                  ? "bg-blue-400"
+                  : "bg-white"
+              }`}
             >
               <Image
                 alt={button.title}
@@ -91,17 +96,19 @@ export default function Configurator({
                 height={200}
                 width={200}
               />
-            </div>
+            </button>
             <p
-              className={` ${
-                sliderStatus === "Interior" ? "text-white" : "text-blue-900"
-              } transition-all duration-2000 font-semibold text-sm`}
+              className={`font-semibold text-sm transition-colors duration-300 ${
+                sliderStatus === "Interior" ? "text-white" : "text-black"
+              }`}
             >
-              {button.title}
+              {button.title === "Video" ? "Views" : button.title}
             </p>
           </div>
         ))}
       </div>
+
+      {/* Color, Scene, and Camera Palettes */}
       <Pallette handleColors={handleColors} />
       <EnvironmentPallette />
       <CameraPallette handleCamera={handleCamera} sliderStatus={sliderStatus} />

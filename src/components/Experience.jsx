@@ -7,7 +7,14 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import * as THREE from "three";
 
-export default function Experience({ data, cameraPos, setCameraPos, sliderStatus }) {
+export default function Experience({
+  data,
+  cameraPos,
+  setCameraPos,
+  sliderStatus,
+  setInfoDataState,
+  infoDataState,
+}) {
   return (
     <Canvas
       className="model"
@@ -26,24 +33,38 @@ export default function Experience({ data, cameraPos, setCameraPos, sliderStatus
       <OrbitControls
         enablePan={false}
         enableZoom={false}
-        minPolarAngle={sliderStatus === "Interior" ? Math.PI / 2.1 : Math.PI / 2.5}
-        maxPolarAngle={sliderStatus === "Interior" ? Math.PI / 1.9 : Math.PI / 2.2}
+        minPolarAngle={
+          sliderStatus === "Interior" ? Math.PI / 2.1 : Math.PI / 2.5
+        }
+        maxPolarAngle={
+          sliderStatus === "Interior" ? Math.PI / 1.9 : Math.PI / 2.2
+        }
         target={[0, 5, 0]}
         enableDamping={true}
-        
-        
-        minAzimuthAngle={sliderStatus === "Interior" ? Math.PI / 1.5 : -Infinity}
-        maxAzimuthAngle={sliderStatus === "Interior" ? -Math.PI/1.5: Infinity}
+        minAzimuthAngle={
+          sliderStatus === "Interior" ? Math.PI / 1.5 : -Infinity
+        }
+        maxAzimuthAngle={
+          sliderStatus === "Interior" ? -Math.PI / 1.5 : Infinity
+        }
       />
       <Environment
         files="/images/skybox_day.jpg"
         background
         environmentIntensity={0.6}
+        environmentRotation={degToRad(-20)}
       />
 
       <directionalLight position={[10, 10, 5]} intensity={3} />
 
-      <Model cameraPos={cameraPos} setCameraPos={setCameraPos} sliderStatus={sliderStatus} data={data} />
+      <Model
+        cameraPos={cameraPos}
+        setCameraPos={setCameraPos}
+        sliderStatus={sliderStatus}
+        data={data}
+        infoDataState={infoDataState}
+        setInfoDataState={setInfoDataState}
+      />
     </Canvas>
   );
 }

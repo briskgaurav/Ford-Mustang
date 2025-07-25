@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function CameraPallette({ handleCamera, sliderStatus }) {
+
+  const [activeCamera, setActiveCamera] = useState(null);
   const cameraAngles = [
     {
       number: 1,
@@ -29,10 +31,16 @@ export default function CameraPallette({ handleCamera, sliderStatus }) {
       {cameraAngles.map((angle, index) => (
         <div
           key={index}
-          className="w-[2.5vw] cursor-pointer flex items-center justify-center h-[2.5vw] bg-white border border-blue-900 rounded-full"
-          onClick={() => handleCamera(angle.number, angle.position)}
+          className="w-[2.5vw] cursor-pointer flex items-center justify-center h-[2.5vw] border-2 border-white rounded-full"
+          style={{
+            backgroundColor: activeCamera === angle.number ? '#60A5FA' : '#FFFFFF'
+          }}
+          onClick={() => {
+            handleCamera(angle.number, angle.position);
+            setActiveCamera(angle.number);
+          }}
         >
-          <p className="text-blue-900 font-bold">{angle.number}</p>
+          <p className={`${activeCamera === angle.number ? 'text-white' : 'text-black'} font-bold`}>{angle.number}</p>
         </div>
       ))}
     </div>

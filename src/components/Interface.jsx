@@ -2,7 +2,11 @@ import Image from "next/image";
 import React from "react";
 import NavbarSlider from "./NavbarSlider";
 
-export default function Interface({ sliderStatus, setSliderStatus }) {
+export default function Interface({
+  sliderStatus,
+  setSliderStatus,
+  infoDataState,
+}) {
   return (
     <div className="h-fit absolute p-[2vw] px-[5vw] flex items-center justify-between inset-0 z-[999] w-full">
       <div className="w-full flex items-center justify-start">
@@ -18,6 +22,7 @@ export default function Interface({ sliderStatus, setSliderStatus }) {
 
       {/* NAV */}
       <NavbarSlider
+        infoDataState={infoDataState}
         sliderStatus={sliderStatus}
         setSliderStatus={setSliderStatus}
       />

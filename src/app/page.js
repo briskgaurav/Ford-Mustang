@@ -4,8 +4,10 @@ import Experience from "@/components/Experience";
 import Interface from "@/components/Interface";
 import React, { useEffect, useState } from "react";
 import gsap from "gsap";
-import { useThree } from "@react-three/fiber";
 import RaScreen from "@/components/RaScreen";
+import { infoData } from "@/Functions/data";
+import InfoPopup from "@/components/InfoPopup";
+
 
 export default function Page() {
   const [cameraPos, setCameraPos] = useState({
@@ -13,6 +15,7 @@ export default function Page() {
     y: 0,
     z: 0,
   });
+  const [infoDataState, setInfoDataState] = useState(infoData);
   const [configButton, setConfigButtons] = useState({
     Color: false,
     Scene: false,
@@ -20,7 +23,7 @@ export default function Page() {
     Info: false,
   });
   const [data, setData] = useState({
-    color: "#52667B",
+    color: "#000000",
     Env: "1",
     video: [
       {
@@ -32,7 +35,7 @@ export default function Page() {
         },
       },
     ],
-    info: "1",
+    info: false,
   });
 
   const handleConfigButton = (button) => {
@@ -47,6 +50,28 @@ export default function Page() {
       Info: false,
       [button]: isTogglingOn,
     });
+
+    if (button === "Info") {
+      gsap.to([".pallete", ".envPallete", ".cameraPallete"], {
+        y: 0,
+        opacity: 0,
+        duration: .5,
+        ease: "power2.inOut",
+        onComplete:()=>{
+          setData((prev) => ({
+            ...prev,
+            info: isTogglingOn,
+          }));
+          return; 
+        }
+      });
+     
+    }
+    setData((prev) => ({
+      ...prev,
+      info: false,
+    }));
+  
 
     // Animate panels
     gsap.to(".pallete", {
@@ -87,6 +112,7 @@ export default function Page() {
       <Interface
         sliderStatus={sliderStatus}
         setSliderStatus={setSliderStatus}
+        infoDataState={infoDataState}
       />
       <Configurator
         handleConfigButton={handleConfigButton}
@@ -96,14 +122,18 @@ export default function Page() {
         setCameraPos={setCameraPos}
         cameraPos={cameraPos}
       />
+      <InfoPopup infoDataState={infoDataState} setInfoDataState={setInfoDataState} />
 
       <Experience
         cameraPos={cameraPos}
+        setInfoDataState={setInfoDataState}
+        infoDataState={infoDataState}
         setCameraPos={setCameraPos}
         data={data}
         sliderStatus={sliderStatus}
         setSliderStatus={setSliderStatus}
       />
+
     </div>
   );
 }
