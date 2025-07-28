@@ -28,7 +28,8 @@ export default function Experience({
       shadows
       gl={{
         toneMapping: THREE.ACESFilmicToneMapping,
-        outputEncoding: THREE.sRGBEncoding,
+        outputColorSpace: THREE.SRGBColorSpace,
+        toneMappingExposure:1.3,
       }}
       camera={{
         fov: 55,
@@ -57,11 +58,12 @@ export default function Experience({
       <Environment
         files={EnviornmentConfig.hdri ? "/images/skybox_night.jpg" : "/images/skybox_day.jpg"}
         background
-        environmentIntensity={0.6}
+        environmentIntensity={EnviornmentConfig.hdri ? EnviornmentConfig.intensityNight : EnviornmentConfig.intensityDay}
         environmentRotation={degToRad(-20)}
       />
 
-      <directionalLight position={[10, 10, 5]} intensity={4} />
+      <directionalLight position={[10, 10, 5]} intensity={1} />
+      <ambientLight intensity={1} />
 
       <Model
         cameraPos={cameraPos}
