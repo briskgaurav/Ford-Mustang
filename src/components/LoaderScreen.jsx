@@ -6,7 +6,7 @@ export default function LoaderScreen({ isLoaded, progress }) {
   const circleRef = useRef(null)
   const containerRef = useRef(null)
 
-  console.log(progress)
+  // console.log(progress)
   useEffect(() => {
     const circle = circleRef.current
     const totalLength = 2 * Math.PI * 48
@@ -40,7 +40,7 @@ export default function LoaderScreen({ isLoaded, progress }) {
   }, [isLoaded])
 
   return (
-    <div ref={containerRef} className='w-full h-screen bg-black  fixed top-0 left-0 z-[9999]'>
+    <div ref={containerRef} className='w-full h-[100dvh] bg-black  fixed top-0 left-0 z-[9999]'>
       <Image
         src="/images/Loader.jpg"
         alt="Background"

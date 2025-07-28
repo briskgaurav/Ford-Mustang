@@ -88,7 +88,7 @@ export default function Experience({
 
       <EffectComposer>
         <Bloom
-          intensity={1.5}
+          intensity={.5}
           luminanceThreshold={0.9}
           luminanceSmoothing={0.9}
           height={300}
