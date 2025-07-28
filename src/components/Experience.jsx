@@ -31,7 +31,7 @@ export default function Experience({
       gl={{
         toneMapping: THREE.ACESFilmicToneMapping,
         outputColorSpace: THREE.SRGBColorSpace,
-        toneMappingExposure: 1.2,
+        // toneMappingExposure: 1.2,
         outputEncoding: THREE.sRGBEncoding,
       }}
       camera={{
@@ -74,7 +74,7 @@ export default function Experience({
 
       <directionalLight
         position={[10, 20, 10]}
-        intensity={2}
+        intensity={1}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}

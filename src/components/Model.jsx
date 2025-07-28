@@ -7,6 +7,8 @@ import { useThree } from "@react-three/fiber";
 import gsap, { Expo } from "gsap";
 import * as THREE from "three";
 
+useGLTF.preload("/model/car.glb");
+
 export default function Model({
   data,
   cameraPos,
