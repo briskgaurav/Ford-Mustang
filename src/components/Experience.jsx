@@ -56,7 +56,7 @@ export default function Experience({
         }
       />
       <Environment
-        files={EnviornmentConfig.hdri ? "/images/skybox_night.jpg" : "/images/skybox_day.jpg"}
+        files={"/images/skybox_night.jpg"}
         background
         environmentIntensity={EnviornmentConfig.hdri ? EnviornmentConfig.intensityNight : EnviornmentConfig.intensityDay}
         environmentRotation={degToRad(-20)}
