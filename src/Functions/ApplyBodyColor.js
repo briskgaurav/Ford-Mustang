@@ -3,20 +3,21 @@ import * as THREE from "three";
 export const applyBodyColor = (name, materials, color) => {
   const mat = materials[name];
   if (mat && mat instanceof THREE.MeshStandardMaterial) {
-    // Upgrade to MeshPhysicalMaterial if not already
+    const baseColor = new THREE.Color(color);
+    baseColor.convertSRGBToLinear();
+
     const newMaterial = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color(color),
+      color: baseColor,
       metalness: 0.9,
       roughness: 0.05,
       clearcoat: 1.0,
       clearcoatRoughness: 0.03,
       reflectivity: 1.0,
-      envMapIntensity: 2.0,
+      envMapIntensity: 2.5, // boosted for mac
       ior: 1.5,
       transmission: 0,
     });
-    newMaterial.color.convertSRGBToLinear();
-    // Copy other existing values if needed
+
     Object.assign(mat, newMaterial);
   }
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import React, { useEffect } from "react";
 import Model from "./Model";
 import { Environment, OrbitControls } from "@react-three/drei";
@@ -20,6 +20,8 @@ export default function Experience({
   //  console.log(EnviornmentConfig)
   // }, [EnviornmentConfig])
 
+
+
   return (
     <Canvas
       className="model"
@@ -30,6 +32,7 @@ export default function Experience({
         toneMapping: THREE.ACESFilmicToneMapping,
         outputColorSpace: THREE.SRGBColorSpace,
         toneMappingExposure: 1.2,
+        outputEncoding: THREE.sRGBEncoding,
       }}
       camera={{
         fov: 55,
