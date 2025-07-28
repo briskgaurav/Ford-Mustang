@@ -50,20 +50,20 @@ export default function Experience({
         enableDamping={true}
         minAzimuthAngle={
           sliderStatus === "Interior" ? Math.PI / 1.5 : -Infinity
-        }
+        } 
         maxAzimuthAngle={
           sliderStatus === "Interior" ? -Math.PI / 1.5 : Infinity
         }
       />
       <Environment
-        files={"/images/skybox_night.jpg"}
+        files={"/images/skybox_day.jpg"}
         background
-        environmentIntensity={EnviornmentConfig.hdri ? EnviornmentConfig.intensityNight : EnviornmentConfig.intensityDay}
+        environmentIntensity={0.6}
         environmentRotation={degToRad(-20)}
       />
 
-      <directionalLight position={[10, 10, 5]} intensity={1} />
-      <ambientLight intensity={1} />
+      {/* <directionalLight position={[10, 10, 5]} intensity={1} />
+      <ambientLight intensity={1} /> */}
 
       <Model
         cameraPos={cameraPos}
