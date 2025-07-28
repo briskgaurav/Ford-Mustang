@@ -57,11 +57,11 @@ export default function Experience({
       <Environment
         files={EnviornmentConfig.hdri ? "/images/skybox_night.jpg" : "/images/skybox_day.jpg"}
         background
-        environmentIntensity={EnviornmentConfig.hdri ? EnviornmentConfig.intensityNight : EnviornmentConfig.intensityDay}
+        environmentIntensity={0.6}
         environmentRotation={degToRad(-20)}
       />
 
-      <directionalLight position={[10, 10, 5]} intensity={1} />
+      <directionalLight position={[10, 10, 5]} intensity={4} />
 
       <Model
         cameraPos={cameraPos}
