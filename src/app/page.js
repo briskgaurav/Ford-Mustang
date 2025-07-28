@@ -1,17 +1,17 @@
 "use client";
+import React, { useEffect, useState, useCallback } from "react";
+import gsap from "gsap";
 import Configurator from "@/components/Configurator";
 import Experience from "@/components/Experience";
 import Interface from "@/components/Interface";
-import React, { useEffect, useState } from "react";
-import gsap from "gsap";
 import RaScreen from "@/components/RaScreen";
-import { infoData } from "@/Functions/data";
 import InfoPopup from "@/components/InfoPopup";
 import LoaderScreen from "@/components/LoaderScreen";
 import useWebsiteLoader from "@/hooks/UseWebsiteLoader";
+import { infoData } from "@/Functions/data";
 
 export default function Page() {
-  const { isLoaded, progress } = useWebsiteLoader(); // ✅ important
+  const { isLoaded, progress } = useWebsiteLoader();
 
   const [EnviornmentConfig, setEnviornmentConfig] = useState({
     hdri: false,
@@ -22,6 +22,7 @@ export default function Page() {
 
   const [cameraPos, setCameraPos] = useState({ x: 0, y: 0, z: 0 });
   const [infoDataState, setInfoDataState] = useState(infoData);
+  const [sliderStatus, setSliderStatus] = useState("Exterior");
 
   const [configButton, setConfigButtons] = useState({
     Color: false,
@@ -36,27 +37,25 @@ export default function Page() {
     video: [
       {
         id: "view1",
-        cameraAngles: {
-          x: cameraPos.x,
-          y: cameraPos.y,
-          z: cameraPos.z,
-        },
+        cameraAngles: { x: 0, y: 0, z: 0 },
       },
     ],
     info: false,
   });
 
-  const handleConfigButton = (button) => {
-    const isTogglingOn = !configButton[button];
+  const handleConfigButton = useCallback((button) => {
+    const isOn = !configButton[button];
 
+    // Reset all buttons except the clicked one
     setConfigButtons({
       Color: false,
       Scene: false,
       Video: false,
       Info: false,
-      [button]: isTogglingOn,
+      [button]: isOn,
     });
 
+    // Info toggle animation
     if (button === "Info") {
       gsap.to([".pallete", ".envPallete", ".cameraPallete"], {
         y: 0,
@@ -64,59 +63,40 @@ export default function Page() {
         duration: 0.5,
         ease: "power2.inOut",
         onComplete: () => {
-          setData((prev) => ({
-            ...prev,
-            info: isTogglingOn,
-          }));
+          setData((prev) => ({ ...prev, info: isOn }));
         },
       });
+    } else {
+      setData((prev) => ({ ...prev, info: false }));
     }
 
-    setData((prev) => ({
-      ...prev,
-      info: false,
-    }));
+    const animations = {
+      Color: ".pallete",
+      Scene: ".envPallete",
+      Video: ".cameraPallete",
+    };
 
-    gsap.to(".pallete", {
-      y: button === "Color" && isTogglingOn ? -110 : 0,
-      opacity: button === "Color" && isTogglingOn ? 1 : 0,
-      duration: 0.5,
-      ease: "power2.inOut",
+    Object.entries(animations).forEach(([key, selector]) => {
+      gsap.to(selector, {
+        y: button === key && isOn ? -110 : 0,
+        opacity: button === key && isOn ? 1 : 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
     });
-
-    gsap.to(".envPallete", {
-      y: button === "Scene" && isTogglingOn ? -110 : 0,
-      opacity: button === "Scene" && isTogglingOn ? 1 : 0,
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
-
-    gsap.to(".cameraPallete", {
-      y: button === "Video" && isTogglingOn ? -110 : 0,
-      opacity: button === "Video" && isTogglingOn ? 1 : 0,
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
-  };
-
-  const [sliderStatus, setSliderStatus] = useState("Exterior");
+  }, [configButton]);
 
   useEffect(() => {
     if (sliderStatus === "RA") {
-      gsap.to(".ra", {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.inOut",
-      });
+      gsap.to(".ra", { opacity: 1, duration: 1, ease: "power2.inOut" });
     }
   }, [sliderStatus]);
 
   return (
     <>
-      {/* ✅ Pass isLoaded here */}
       <LoaderScreen isLoaded={isLoaded} progress={progress} />
 
-      <div className="h-screen relative w-full">
+      <div className="relative h-screen w-full">
         {sliderStatus === "RA" && <RaScreen />}
 
         <Interface

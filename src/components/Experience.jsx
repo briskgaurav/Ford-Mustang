@@ -16,25 +16,24 @@ export default function Experience({
   infoDataState,
   EnviornmentConfig,
 }) {
-
   // useEffect(() => {
   //  console.log(EnviornmentConfig)
   // }, [EnviornmentConfig])
-  
+
   return (
     <Canvas
       className="model"
       flat
+      dpr={[1, 2]}
       shadows
       gl={{
         toneMapping: THREE.ACESFilmicToneMapping,
         outputColorSpace: THREE.SRGBColorSpace,
-        toneMappingExposure:1.3,
+        toneMappingExposure: 1.2,
       }}
       camera={{
         fov: 55,
         position: [20, -50, 50],
-        rotation: [degToRad(-0), 0, 0],
       }}
     >
       <OrbitControls
@@ -50,20 +49,34 @@ export default function Experience({
         enableDamping={true}
         minAzimuthAngle={
           sliderStatus === "Interior" ? Math.PI / 1.5 : -Infinity
-        } 
+        }
         maxAzimuthAngle={
           sliderStatus === "Interior" ? -Math.PI / 1.5 : Infinity
         }
       />
       <Environment
-        files={"/images/skybox_day.jpg"}
+        files={
+          EnviornmentConfig.hdri
+            ? "/images/skybox_night.jpg"
+            : "/images/skybox_day.jpg"
+        }
         background
-        environmentIntensity={0.6}
+        intensity={
+          EnviornmentConfig.hdri
+            ? EnviornmentConfig.intensityNight
+            : EnviornmentConfig.intensityDay
+        }
         environmentRotation={degToRad(-20)}
       />
 
-      {/* <directionalLight position={[10, 10, 5]} intensity={1} />
-      <ambientLight intensity={1} /> */}
+      <directionalLight
+        position={[10, 20, 10]}
+        intensity={2}
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <ambientLight intensity={0.5} />
 
       <Model
         cameraPos={cameraPos}
