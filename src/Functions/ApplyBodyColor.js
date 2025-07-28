@@ -13,7 +13,7 @@ export const applyBodyColor = (name, materials, color) => {
         reflectivity: 1.0,
         envMapIntensity: 2.0,
         ior: 1.5,
-        transmission: 0, // set > 0 for glass-like
+        transmission:0,
       });
   
       // Copy other existing values if needed

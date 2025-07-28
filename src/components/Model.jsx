@@ -57,15 +57,15 @@ export default function Model({
   }, [currentCameraPosition]);
 
   // Move lights mesh and update material
-  useEffect(() => {
-    console.log(materials.LucesPosicionLaterales)
-    materials.LucesPosicionLaterales.roughness = 0.1;
-    materials.LucesPosicionLaterales.color = new THREE.Color(1.0, 0, 0);
-    materials.LucesPosicionLaterales.metalness = 0.9;
-    materials.LucesPosicionLaterales.clearcoat = 1.0;
-    materials.LucesPosicionLaterales.clearcoatRoughness = 0.1;
-    materials.LucesPosicionLaterales.needsUpdate = true;
-  }, []);
+  // useEffect(() => {
+  //   console.log(materials.LucesPosicionLaterales)
+  //   materials.LucesPosicionLaterales.roughness = 0.1;
+  //   materials.LucesPosicionLaterales.color = new THREE.Color(1.0, 0, 0);
+  //   // materials.LucesPosicionLaterales.metalness = 0.9;
+  //   materials.LucesPosicionLaterales.clearcoat = 1.0;
+  //   materials.LucesPosicionLaterales.clearcoatRoughness = 0.1;
+  //   materials.LucesPosicionLaterales.needsUpdate = true;
+  // }, []);
 
   useEffect(() => {
     if (!materials) return;
