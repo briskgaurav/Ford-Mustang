@@ -78,7 +78,7 @@ export default function EnvironmentPallette({
             width={100}
           />
         </div>
-        <p className="text-white text-xs">Headlights</p>
+        <p className="text-white text-xs">Lights</p>
       </div>
     </div>
   );

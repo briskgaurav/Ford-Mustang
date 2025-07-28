@@ -6,6 +6,7 @@ export default function LoaderScreen({ isLoaded, progress }) {
   const circleRef = useRef(null)
   const containerRef = useRef(null)
 
+  console.log(progress)
   useEffect(() => {
     const circle = circleRef.current
     const totalLength = 2 * Math.PI * 48
@@ -39,16 +40,16 @@ export default function LoaderScreen({ isLoaded, progress }) {
   }, [isLoaded])
 
   return (
-    <div ref={containerRef} className='w-full h-screen bg-black fixed top-0 left-0 z-[9999]'>
+    <div ref={containerRef} className='w-full h-screen bg-black  fixed top-0 left-0 z-[9999]'>
       <Image
         src="/images/Loader.jpg"
         alt="Background"
         width={1000}
         height={1000}
-        className="absolute w-full h-full object-cover opacity-80"
+        className="absolute w-full h-full object-cover opacity-50"
       />
       <div className='w-full h-full flex items-end justify-start p-[3vw]'>
-        <div className='w-[10vw] h-[10vw] relative flex items-center justify-center bg-white/10 border-2 border-white backdrop-blur-[5px] rounded-full'>
+        <div className='w-[10vw] h-[10vw] relative flex items-center justify-center bg-white/10 backdrop-blur-[10px] border-2 border-white  rounded-full'>
           <svg className='w-[105%] h-[105%] absolute' viewBox='0 0 100 100'>
             <circle
               ref={circleRef}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function Pallette({ handleColors }) {
-  const color = ["#000000", "#FFFFFF", "#FF0000", "#066FEF", "#C0C0C0", "#808080", "#FFD700", "#800000"];
+  const color = ["#3C6996", "#FFFFFF", "#FF0000", "#066FEF", "#C0C0C0", "#808080", "#FFD700", "#800000"];
   const [activeColor, setActiveColor] = useState('#FFFFFF');
   return (
     <div className="pallete gap-[1vw] opacity-0 absolute left-0 bottom-0 z-[2] flex items-center justify-center w-full">

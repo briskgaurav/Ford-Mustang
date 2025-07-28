@@ -32,7 +32,7 @@ export default function Page() {
   });
 
   const [data, setData] = useState({
-    color: "#000000",
+    color: "#C0C0C0",
     Env: "1",
     video: [
       {

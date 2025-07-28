@@ -1,11 +1,12 @@
 "use client";
 
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree, extend } from "@react-three/fiber";
 import React, { useEffect } from "react";
 import Model from "./Model";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls} from "@react-three/drei";
 import { degToRad, radToDeg } from "three/src/math/MathUtils";
 import * as THREE from "three";
+import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 
 export default function Experience({
   data,
@@ -16,12 +17,6 @@ export default function Experience({
   infoDataState,
   EnviornmentConfig,
 }) {
-  // useEffect(() => {
-  //  console.log(EnviornmentConfig)
-  // }, [EnviornmentConfig])
-
-
-
   return (
     <Canvas
       className="model"
@@ -74,14 +69,15 @@ export default function Experience({
 
       <directionalLight
         position={[10, 20, 10]}
-        intensity={1}
+        intensity={3}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
       />
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={3} />
 
       <Model
+        EnviornmentConfig={EnviornmentConfig}
         cameraPos={cameraPos}
         setCameraPos={setCameraPos}
         sliderStatus={sliderStatus}
@@ -89,6 +85,17 @@ export default function Experience({
         infoDataState={infoDataState}
         setInfoDataState={setInfoDataState}
       />
+
+      <EffectComposer>
+        <Bloom
+          intensity={1.5}
+          luminanceThreshold={0.9}
+          luminanceSmoothing={0.9}
+          height={300}
+        />
+        
+      </EffectComposer>
+
     </Canvas>
   );
 }

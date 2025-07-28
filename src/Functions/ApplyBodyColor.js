@@ -11,14 +11,14 @@ export const applyBodyColor = (name, materials, color) => {
 
   const newMaterial = new THREE.MeshPhysicalMaterial({
     color: baseColor,
-    // metalness: 0.9,
-    // roughness: 0.05,
-    // clearcoat: 1.0,
-    // clearcoatRoughness: 0.03,
-    // reflectivity: 1.0,
-    // envMapIntensity: 2.5,
-    // ior: 1.5,
-    // transmission: 0,
+    metalness: 0.5,
+    roughness: 0.05,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.03,
+    reflectivity: 1.0,
+    envMapIntensity: 20,
+    ior: 1.5,
+    transmission: 0,
   });
 
   Object.assign(mat, newMaterial);
