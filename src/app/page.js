@@ -11,7 +11,7 @@ import LoaderScreen from "@/components/LoaderScreen";
 import useWebsiteLoader from "@/hooks/UseWebsiteLoader";
 
 export default function Page() {
-  const { isLoaded } = useWebsiteLoader(); // ✅ important
+  const { isLoaded, progress } = useWebsiteLoader(); // ✅ important
 
   const [EnviornmentConfig, setEnviornmentConfig] = useState({
     hdri: false,
@@ -114,7 +114,7 @@ export default function Page() {
   return (
     <>
       {/* ✅ Pass isLoaded here */}
-      <LoaderScreen isLoaded={isLoaded} />
+      <LoaderScreen isLoaded={isLoaded} progress={progress} />
 
       <div className="h-screen relative w-full">
         {sliderStatus === "RA" && <RaScreen />}

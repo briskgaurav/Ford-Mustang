@@ -1,63 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 
-export default function LoaderScreen({ isLoaded }) {
+export default function LoaderScreen({ isLoaded, progress }) {
   const circleRef = useRef(null)
   const containerRef = useRef(null)
-  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const circle = circleRef.current
     const totalLength = 2 * Math.PI * 48
     circle.setAttribute('stroke-dasharray', totalLength)
-    circle.setAttribute('stroke-dashoffset', totalLength)
-
-    const obj = { value: totalLength }
-
-    const tl = gsap.timeline()
-
-    tl.to(obj, {
-      value: 0,
-      duration: 2,
-      ease: "power2.inOut",
-      onUpdate: () => {
-        circle.setAttribute('stroke-dashoffset', obj.value)
-        const percent = Math.round(((totalLength - obj.value) / totalLength) * 100)
-        setProgress(percent)
-      }
-    })
-
-    return () => tl.kill()
   }, [])
 
-  // When loaded, animate to 100 and fade out
+  useEffect(() => {
+    const circle = circleRef.current
+    const totalLength = 2 * Math.PI * 48
+
+    gsap.to(circle, {
+      strokeDashoffset: totalLength - (progress / 100) * totalLength,
+      duration: 0.3,
+      ease: "power2.out"
+    })
+  }, [progress])
+
   useEffect(() => {
     if (isLoaded) {
-      const circle = circleRef.current
-      const totalLength = 2 * Math.PI * 48
-
-      gsap.to(circle, {
-        strokeDashoffset: 0,
-        duration: 0.5,
-        ease: "power2.out",
-        onUpdate: () => {
-          setProgress(100)
-        }
-      })
-
       gsap.to(containerRef.current, {
         opacity: 0,
         duration: 1,
         delay: 0.5,
         onComplete: () => {
-          if (containerRef.current) containerRef.current.style.display = "none"
+          setTimeout(() => {
+            if (containerRef.current) containerRef.current.style.display = "none"
+          }, 1000)
         }
       })
     }
   }, [isLoaded])
 
   return (
-    <div ref={containerRef} className='w-full h-screen bg-black fixed top-0 left-0 z-[9999]'>
+    <div ref={containerRef} className='w-full h-screen fixed top-0 left-0 z-[9999]'>
+      <img
+        src="/images/Loader.jpg"
+        alt="Background"
+        className="absolute w-full h-full object-cover opacity-80"
+      />
       <div className='w-full h-full flex items-center justify-center'>
         <div className='w-[10vw] h-[10vw] relative flex items-center justify-center bg-white/20 border-2 border-white backdrop-blur-sm rounded-full'>
           <svg className='w-[105%] h-[105%] absolute' viewBox='0 0 100 100'>

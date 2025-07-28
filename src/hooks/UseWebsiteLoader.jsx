@@ -1,9 +1,9 @@
-// hooks/useWebsiteLoader.js
 import { useEffect, useState } from "react";
 import { LoadingManager } from "three";
 
 export default function useWebsiteLoader() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const manager = new LoadingManager();
@@ -11,11 +11,17 @@ export default function useWebsiteLoader() {
     let totalAssets = 0;
     let loadedAssets = 0;
 
+    const updateProgress = () => {
+      const percent = totalAssets > 0 ? (loadedAssets / totalAssets) * 100 : 100;
+      setProgress(Math.round(percent));
+    };
+
     const checkAllLoaded = () => {
+      updateProgress();
       if (loadedAssets >= totalAssets) {
         setTimeout(() => {
           setIsLoaded(true);
-        }, 500); // small delay for polish
+        }, 500); // smooth exit delay
       }
     };
 
@@ -25,6 +31,7 @@ export default function useWebsiteLoader() {
     images.forEach((img) => {
       if (img.complete) {
         loadedAssets++;
+        checkAllLoaded();
       } else {
         img.onload = () => {
           loadedAssets++;
@@ -37,7 +44,7 @@ export default function useWebsiteLoader() {
       }
     });
 
-    // Custom fonts (optional)
+    // Fonts
     if (document.fonts) {
       totalAssets++;
       document.fonts.ready.then(() => {
@@ -46,14 +53,17 @@ export default function useWebsiteLoader() {
       });
     }
 
-    // 3D assets via manager (optional)
+    // 3D assets
     manager.onLoad = () => {
       loadedAssets++;
       checkAllLoaded();
     };
 
     checkAllLoaded();
+
+    // Optional: expose manager if needed
+    // return manager
   }, []);
 
-  return { isLoaded };
+  return { isLoaded, progress };
 }

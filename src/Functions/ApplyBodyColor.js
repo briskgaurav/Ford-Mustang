@@ -6,8 +6,8 @@ export const applyBodyColor = (name, materials, color) => {
       // Upgrade to MeshPhysicalMaterial if not already
       const newMaterial = new THREE.MeshPhysicalMaterial({
         color: new THREE.Color(color),
-        metalness: 0.9,
-        roughness: 0.05,
+        // metalness: 0.9,
+        // roughness: 0.05,
         clearcoat: 1.0,
         clearcoatRoughness: 0.03,
         reflectivity: 1.0,
