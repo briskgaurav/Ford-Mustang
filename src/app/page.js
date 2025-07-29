@@ -96,7 +96,7 @@ export default function Page() {
     <>
       <LoaderScreen isLoaded={isLoaded} progress={progress} />
 
-      <div className="relative h-screen w-full">
+      <div className="relative h-screen max-sm:h-[100dvh] w-full">
         {sliderStatus === "RA" && <RaScreen />}
 
         <Interface

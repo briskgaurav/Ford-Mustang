@@ -72,7 +72,7 @@ export default function Configurator({
                       : { state: true, id: button.title }
                   );
                 }}
-                className={`w-[3vw] max-sm:w-[10vw] h-[3vw] max-sm:h-[10vw] p-[.6vw] max-sm:p-[2vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                className={`w-[3vw] max-sm:w-[18vw] h-[3vw] max-sm:h-[12vw] p-[.6vw] max-sm:p-[2vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
                   isActive ? "bg-blue-400" : "bg-white"
                 }`}
               >
