@@ -8,8 +8,8 @@ export default function Interface({
   infoDataState,
 }) {
   return (
-    <div className="h-fit absolute p-[2vw] px-[5vw]  max-sm:px-[6vw] max-sm:p-[10vw]  max-md:px-[2vw] max-md:p-[5vw] flex items-center max-sm:gap-[10vw] max-sm:flex-col max-md:flex-col max-md:gap-[8vw] justify-between inset-0 z-[800] w-full">
-      <div className="w-full flex items-center justify-start max-sm:justify-center max-md:justify-center">
+    <div className="h-fit max-sm:h-[20vh] absolute p-[2vw] px-[5vw]  max-sm:px-[6vw] max-sm:p-[10vw]  max-md:px-[2vw] max-md:p-[5vw] flex items-center max-sm:gap-[10vw] max-sm:flex-col max-md:flex-col max-md:gap-[8vw] justify-between inset-0 z-[800] w-full">
+      <div className="w-full  flex items-center justify-start max-sm:justify-center max-md:justify-center">
         <div className="h-[5vw] max-sm:h-fit max-sm:w-[30vw] max-md:w-[20vw]  w-[8vw]">
           <Image
             src={"/images/ford.png"}
