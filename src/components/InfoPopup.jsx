@@ -50,14 +50,15 @@ export default function InfoPopup({ infoDataState, setInfoDataState }) {
   };
 
   return (
-    <div className="w-full select-none info-box bg-blue-500/5 backdrop-blur-xs transition-all duration-300 absolute inset-0 flex items-center justify-center z-[88]">
+    <div className="w-full select-none info-box bg-blue-500/5 backdrop-blur-xs transition-all duration-300 absolute inset-0 flex items-center justify-center z-[88] max-sm:z-[880] max-md:z-[880]">
       <div className="min-h-[60vh] relative h-[60vh] bg-white rounded-xl shadow-lg w-[25%] max-sm:w-[80%] max-sm:h-fit max-sm:p-[4vw]  p-[1.5vw] flex flex-col justify-between">
-        <span
+        <button
           onClick={handleClose}
-          className="text-gray-700 hover:text-black text-xl absolute right-0 top-0 p-[.5vw] max-sm:p-[2vw] max-sm:bg-white max-sm:rounded-full pointer-events-auto max-sm:top-[-10%]"
+          className="text-gray-700 hover:text-black text-xl absolute right-0 top-0 p-[.5vw] max-sm:p-[2vw] max-sm:bg-white max-sm:rounded-full pointer-events-auto max-sm:top-[-10%] z-[800] cursor-pointer"
+          style={{touchAction: "manipulation"}}
         >
           <svg
-            className="w-[1vw] max-sm:w-[10vw] h-[1vw] max-sm:h-[5vw] cursor-pointer"
+            className="w-[1vw] max-sm:w-[10vw] h-[1vw] max-sm:h-[5vw]"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -69,7 +70,7 @@ export default function InfoPopup({ infoDataState, setInfoDataState }) {
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
-        </span>
+        </button>
         {/* Image Container - Fixed height to avoid layout shift */}
         <div className="info-popup-content h-[30vh] w-full overflow-hidden rounded-xl bg-gray-200">
           <Image
