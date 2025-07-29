@@ -52,7 +52,7 @@ export default function Configurator({
     <>
       {/* Toolbar */}
       <div
-        className={`absolute z-[10] left-0 bottom-0 pt-[1vw] max-sm:p-[3vw] max-sm:pt-[5vw] pb-[.5vw] w-full shadow-2xl backdrop-blur-md flex gap-[2.5vw] max-sm:gap-[5vw] items-center justify-center transition-colors duration-500 ${
+        className={`absolute z-[10] left-0 bottom-0 pt-[1vw] max-sm:p-[3vw] max-md:p-[2vw] max-sm:pt-[5vw] pb-[.5vw] w-full shadow-2xl backdrop-blur-md flex gap-[2.5vw] max-sm:gap-[5vw] max-md:gap-[10vw] items-center justify-center transition-colors duration-500 ${
           sliderStatus === "Interior" || EnviornmentConfig.hdri
             ? "bg-white/20"
             : "bg-[#EBEBEB]"
@@ -72,7 +72,7 @@ export default function Configurator({
                       : { state: true, id: button.title }
                   );
                 }}
-                className={`w-[3vw] max-sm:w-[18vw] h-[3vw] max-sm:h-[12vw] p-[.6vw] max-sm:p-[2vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                className={`w-[3vw] max-sm:w-[18vw] max-md:w-[10vw] h-[3vw] max-sm:h-[12vw] max-md:h-[5vw] p-[.6vw] max-sm:p-[2vw] max-md:p-[.8vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
                   isActive ? "bg-blue-400" : "bg-white"
                 }`}
               >
@@ -85,7 +85,7 @@ export default function Configurator({
                 />
               </button>
               <p
-                className={`font-semibold text-sm transition-colors duration-300 ${
+                className={`font-semibold text-sm max-md:text-xl max-sm:text-sm transition-colors duration-300 ${
                   sliderStatus === "Interior" ? "text-white" : "text-black"
                 }`}
               >

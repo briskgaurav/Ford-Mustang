@@ -51,14 +51,14 @@ export default function NavbarSlider({
 
   return (
     <div ref={sliderRef} className="w-full flex  items-center justify-center opacity-1 translate-y-0">
-      <div className="w-[80%] max-sm:w-[90%] relative flex items-center  h-fit">
+      <div className="w-[80%] max-sm:w-[90%]  relative flex items-center  h-fit">
         <div className="bg-[#066FEF] navbarSlider rounded-full z-[1] absolute w-[35%] h-[7.5vh] max-sm:h-[7vh]"></div>
-        <div className="h-full py-[.5vw] max-sm:py-[3vw] gap-2 flex items-center justify-between w-full border bg-[#ececec] border-black rounded-full">
+        <div className="h-full py-[.5vw] max-sm:py-[3vw] max-md:py-[2vw] gap-2 flex items-center justify-between w-full border bg-[#ececec] border-black rounded-full">
           {["Exterior", "Interior", "RA"].map((item, i) => (
             <p
               key={i}
               onClick={() => handleSlider(item)}
-              className={`text-black w-full text-center z-[2] cursor-pointer tracking-wide ${
+              className={`text-black w-full text-center max-md:text-xl max-md:text-md z-[2] cursor-pointer tracking-wide ${
                 sliderStatus === item ? "text-white" : ""
               }`}
             >

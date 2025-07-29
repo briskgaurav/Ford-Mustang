@@ -30,11 +30,11 @@ export default function EnvironmentPallette({
   ];
 
   return (
-    <div className="envPallete gap-[1vw] opacity-0 absolute left-0 bottom-0 z-[2] flex items-center justify-center w-full">
+    <div className="envPallete gap-[1vw] opacity-0 absolute left-0 bottom-0 z-[2] flex items-center justify-center max-md:gap-[2vw] max-sm:gap-[0vw] w-full">
       {/* Hdri Buttons */}
       <div className="flex flex-col items-center gap-1">
         <div
-          className="w-[2.5vw] max-sm:w-[15vw] max-sm:p-[2vw] cursor-pointer h-[2.5vw] max-sm:h-[15vw] rounded-full"
+          className="w-[2.5vw] max-sm:w-[15vw] max-md:w-[10vw] max-sm:p-[2vw] cursor-pointer h-[2.5vw] max-sm:h-[15vw] max-md:h-[10vw] rounded-full"
           onClick={() => {
             setHdriButton(!hdriButton);
             setEnviornmentConfig({ ...EnviornmentConfig, hdri: !hdriButton });
@@ -47,7 +47,7 @@ export default function EnvironmentPallette({
             width={100}
           />
         </div>
-        <p className="text-white text-xs">Abstract</p>
+        <p className="text-white max-md:text-lg text-xs">Abstract</p>
       </div>
       {/* 
       <div
@@ -65,7 +65,7 @@ export default function EnvironmentPallette({
       {/* Light Buttons */}
       <div className="flex flex-col items-center gap-1">
         <div
-          className="w-[2.5vw] max-sm:w-[15vw] max-sm:p-[2vw] cursor-pointer h-[2.5vw] max-sm:h-[15vw] rounded-full"
+          className="w-[2.5vw] max-sm:w-[15vw] max-md:w-[10vw] max-sm:p-[2vw] cursor-pointer h-[2.5vw] max-sm:h-[15vw] max-md:h-[10vw] rounded-full"
           onClick={() => {
             setLightButton(!lightButton);
             setEnviornmentConfig({ ...EnviornmentConfig, light: !lightButton });
@@ -78,7 +78,7 @@ export default function EnvironmentPallette({
             width={100}
           />
         </div>
-        <p className="text-white text-xs">Lights</p>
+        <p className="text-white max-md:text-lg text-xs">Lights</p>
       </div>
     </div>
   );

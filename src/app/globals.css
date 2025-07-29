@@ -10,8 +10,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --max-md: var(--breakpoint-md, 1025px);
-  --max-sm: var(--breakpoint-sm, 768px);
+  --breakpoint-md: 1025px;
+  --breakpoint-sm: 768px;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -46,6 +47,14 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
+@media screen and (max-width: 1025px) {
+  .button-style {
+    width: 3vw;
+    height: 3vw;
+    font-size: 2vw;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .button-style {
     width: 10vw;
@@ -53,4 +62,5 @@ body {
     font-size: 6vw;
   }
 }
+
 

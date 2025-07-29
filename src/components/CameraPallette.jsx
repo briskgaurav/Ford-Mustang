@@ -27,11 +27,11 @@ export default function CameraPallette({ handleCamera, sliderStatus }) {
   ];
 
   return (
-    <div className="cameraPallete opacity-0 gap-[1vw] max-sm:gap-[3vw] max-sm:p-[3vw] absolute left-0 bottom-[0%] z-[2] flex items-center justify-center w-full">
+    <div className="cameraPallete opacity-0 gap-[1vw] max-sm:gap-[3vw] max-md:gap-[2vw] max-md:p-[2vw] max-sm:p-[3vw] absolute left-0 bottom-[0%] z-[2] flex items-center justify-center w-full">
       {cameraAngles.map((angle, index) => (
         <div
           key={index}
-          className="w-[2.5vw] max-sm:w-[10vw] max-sm:p-[2vw] cursor-pointer flex items-center justify-center h-[2.5vw] max-sm:h-[10vw] border-2 border-white rounded-full"
+          className="w-[2.5vw] max-sm:w-[10vw] max-md:w-[8vw] max-sm:p-[2vw] cursor-pointer flex items-center justify-center h-[2.5vw] max-sm:h-[10vw] max-md:h-[8vw] border-2 border-white rounded-full"
           style={{
             backgroundColor: activeCamera === angle.number ? '#60A5FA' : '#FFFFFF'
           }}
@@ -40,7 +40,7 @@ export default function CameraPallette({ handleCamera, sliderStatus }) {
             setActiveCamera(angle.number);
           }}
         >
-          <p className={`${activeCamera === angle.number ? 'text-white' : 'text-black'} font-bold`}>{angle.number}</p>
+          <p className={`${activeCamera === angle.number ? 'text-white' : 'text-black'} max-md:text-xl  font-bold`}>{angle.number}</p>
         </div>
       ))}
     </div>
