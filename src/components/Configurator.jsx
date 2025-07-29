@@ -52,7 +52,7 @@ export default function Configurator({
     <>
       {/* Toolbar */}
       <div
-        className={`absolute z-[10] left-0 bottom-0 pt-[1vw] pb-[.5vw] w-full shadow-2xl backdrop-blur-md flex gap-[2.5vw] items-center justify-center transition-colors duration-500 ${
+        className={`absolute z-[10] left-0 bottom-0 pt-[1vw] max-sm:p-[3vw] max-sm:pt-[5vw] pb-[.5vw] w-full shadow-2xl backdrop-blur-md flex gap-[2.5vw] max-sm:gap-[5vw] items-center justify-center transition-colors duration-500 ${
           sliderStatus === "Interior" || EnviornmentConfig.hdri
             ? "bg-white/20"
             : "bg-[#EBEBEB]"
@@ -72,7 +72,7 @@ export default function Configurator({
                       : { state: true, id: button.title }
                   );
                 }}
-                className={`w-[3vw] h-[3vw] p-[.6vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                className={`w-[3vw] max-sm:w-[10vw] h-[3vw] max-sm:h-[10vw] p-[.6vw] max-sm:p-[2vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
                   isActive ? "bg-blue-400" : "bg-white"
                 }`}
               >

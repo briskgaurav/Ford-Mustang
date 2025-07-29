@@ -48,9 +48,9 @@ export default function LoaderScreen({ isLoaded, progress }) {
         height={1000}
         className="absolute w-full h-full object-cover opacity-50"
       />
-      <div className='w-full h-full flex items-end justify-start p-[3vw]'>
-        <div className='w-[10vw] h-[10vw] relative flex items-center justify-center bg-white/10 backdrop-blur-[10px] border-2 border-white  rounded-full'>
-          <svg className='w-[105%] h-[105%] absolute' viewBox='0 0 100 100'>
+      <div className='w-full h-full flex items-end max-sm:items-center max-sm:justify-center justify-start p-[3vw]'>
+        <div className='w-[10vw] h-[10vw] max-sm:w-[30vw] max-sm:h-[30vw] relative flex items-center justify-center bg-white/10 backdrop-blur-[10px] border-2 border-white  rounded-full'>
+          <svg className='w-[105%] h-[105%] max-sm:w-[110%] max-sm:h-[110%] absolute' viewBox='0 0 100 100'>
             <circle
               ref={circleRef}
               cx='50'

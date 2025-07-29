@@ -34,7 +34,7 @@ export default function EnvironmentPallette({
       {/* Hdri Buttons */}
       <div className="flex flex-col items-center gap-1">
         <div
-          className="w-[2.5vw] cursor-pointer h-[2.5vw] rounded-full"
+          className="w-[2.5vw] max-sm:w-[15vw] max-sm:p-[2vw] cursor-pointer h-[2.5vw] max-sm:h-[15vw] rounded-full"
           onClick={() => {
             setHdriButton(!hdriButton);
             setEnviornmentConfig({ ...EnviornmentConfig, hdri: !hdriButton });
@@ -65,7 +65,7 @@ export default function EnvironmentPallette({
       {/* Light Buttons */}
       <div className="flex flex-col items-center gap-1">
         <div
-          className="w-[2.5vw] cursor-pointer h-[2.5vw] rounded-full"
+          className="w-[2.5vw] max-sm:w-[15vw] max-sm:p-[2vw] cursor-pointer h-[2.5vw] max-sm:h-[15vw] rounded-full"
           onClick={() => {
             setLightButton(!lightButton);
             setEnviornmentConfig({ ...EnviornmentConfig, light: !lightButton });
