@@ -60,11 +60,13 @@ export default function Configurator({
       >
         {buttonsArray.map((button, index) => {
           const isActive = activeButton.state && activeButton.id === button.title;
+          const isInfoButtonDisabled = button.title === "Info" && sliderStatus === "Interior";
 
           return (
             <div key={index} className="flex flex-col gap-2 items-center justify-center">
               <button
                 onClick={() => {
+                  if (isInfoButtonDisabled) return;
                   handleConfigButton(button.title);
                   setActiveButton((prev) =>
                     prev.id === button.title
@@ -72,9 +74,9 @@ export default function Configurator({
                       : { state: true, id: button.title }
                   );
                 }}
-                className={`w-[3vw] max-sm:w-[18vw] max-md:w-[10vw] h-[3vw] max-sm:h-[12vw] max-md:h-[5vw] p-[.6vw] max-sm:p-[2vw] max-md:p-[.8vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 cursor-pointer ${
-                  isActive ? "bg-blue-400" : "bg-white"
-                }`}
+                className={`w-[3vw] max-sm:w-[18vw] max-md:w-[10vw] h-[3vw] max-sm:h-[12vw] max-md:h-[5vw] p-[.6vw] max-sm:p-[2vw] max-md:p-[.8vw] rounded-full border border-black flex items-center justify-center transition-colors duration-300 ${
+                  isInfoButtonDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                } ${isActive ? "bg-blue-400" : "bg-white"}`}
               >
                 <Image
                   alt={button.title}
