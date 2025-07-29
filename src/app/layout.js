@@ -14,9 +14,6 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Mustang Configurator",
   description: "Mustang Configurator CamOn",
-  icons: {
-    icon: '/images/ford.png',
-  },
 };
 
 export default function RootLayout({ children }) {
